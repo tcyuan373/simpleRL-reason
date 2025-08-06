@@ -23,6 +23,10 @@ from verl.utils.reward_score import kk
 # from verl.utils.reward_score import simplelr_math
 # from verl.utils.reward_score import deepseek_r1
 from verl.utils.reward_score import hf_math_verify
+from verl.utils.reward_score import housing_statutes
+
+import wandb, os
+wandb.login(key='0fc0cd9916b988b325b1c64da2f5bbaf48f8e80b', relogin=True)
 
 def _default_compute_score(data_source, solution_str, ground_truth):
     if data_source == 'openai/gsm8k':
@@ -38,6 +42,9 @@ def _default_compute_score(data_source, solution_str, ground_truth):
         return hf_math_verify.compute_score(solution_str, ground_truth)
     elif "deepseek_r1" in data_source:
         return deepseek_r1.compute_score(solution_str, ground_truth)
+    
+    elif "housing_statutes" in data_source:
+        return housing_statutes.compute_score(solution_str, ground_truth)
     else:
         raise NotImplementedError
 

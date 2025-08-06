@@ -8,16 +8,17 @@ export RAY_DEDUP_LOGS=1
 
 
 export PROJECT_NAME=verl_train
-export WANDB_API_KEY=TO_BE_FILLED
+export WANDB_API_KEY='0fc0cd9916b988b325b1c64da2f5bbaf48f8e80b'
 export WANDB_OFFICIAL=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
-export HDFS_DATA_PATH=TO_BE_FILLED
-export HDFS_MODEL_PATH=TO_BE_FILLED
-export HDFS_CHECKPOINT_PATH=TO_BE_FILLED
-export HDFS_LOG_PATH=TO_BE_FILLED
+export HDFS_DATA_PATH='./data'
+export HDFS_MODEL_PATH='Qwen'
+export HDFS_CHECKPOINT_PATH='./model_ckpts'
+export HDFS_LOG_PATH='./logs'
 export RUN_NAME=verl-grpo
-export ARNOLD_WORKER_NUM=TO_BE_FILLED # number of nodes you want to use 
-
+export ARNOLD_WORKER_NUM=1 # number of nodes you want to use 
+export HEAD_IP='0.0.0.0'
+export HEAD_PORT=6379
 
 # Default values
 TRAIN_BATCH_SIZE=256
