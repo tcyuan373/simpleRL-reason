@@ -40,6 +40,6 @@ def make_test_command(ml_client, environment):
     print(created_component.name, created_component.version)
 
 if __name__ == "__main__":
-    make_test_command(ml_client, "goji:11")
+    make_test_command(ml_client, "goji:22")
 
 

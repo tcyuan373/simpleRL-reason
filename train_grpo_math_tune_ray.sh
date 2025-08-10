@@ -17,8 +17,8 @@ export HDFS_CHECKPOINT_PATH='./model_ckpts'
 export HDFS_LOG_PATH='./logs'
 export RUN_NAME=verl-grpo
 export ARNOLD_WORKER_NUM=1 # number of nodes you want to use 
-export HEAD_IP='0.0.0.0'
-export HEAD_PORT=6379
+export HEAD_IP='127.0.0.1'
+export HEAD_PORT=8265
 
 # Default values
 TRAIN_BATCH_SIZE=256

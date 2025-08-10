@@ -23,9 +23,10 @@ from verl.utils.reward_score import kk
 # from verl.utils.reward_score import simplelr_math
 # from verl.utils.reward_score import deepseek_r1
 from verl.utils.reward_score import hf_math_verify
-from verl.utils.reward_score import housing_statutes
+from verl.utils.reward_score.housing_statute import compute_final_score
 
 import wandb, os
+
 wandb.login(key='0fc0cd9916b988b325b1c64da2f5bbaf48f8e80b', relogin=True)
 
 def _default_compute_score(data_source, solution_str, ground_truth):
@@ -39,12 +40,13 @@ def _default_compute_score(data_source, solution_str, ground_truth):
     elif "kk" in data_source:
         return kk.compute_score(solution_str, ground_truth)
     elif "simplelr" in data_source:
-        return hf_math_verify.compute_score(solution_str, ground_truth)
+        # return hf_math_verify.compute_score(solution_str, ground_truth)
+        return compute_final_score(solution_str, ground_truth)
     elif "deepseek_r1" in data_source:
         return deepseek_r1.compute_score(solution_str, ground_truth)
     
     elif "housing_statutes" in data_source:
-        return housing_statutes.compute_score(solution_str, ground_truth)
+        return compute_final_score(solution_str, ground_truth)
     else:
         raise NotImplementedError
 
@@ -121,8 +123,8 @@ def main(config):
 def run_ppo(config, compute_score=None):
     if not ray.is_initialized():
         # this is for local ray cluster
-        ray.init(runtime_env={'env_vars': {'TOKENIZERS_PARALLELISM': 'true', 'NCCL_DEBUG': 'WARN'}})
-
+        test_init = ray.init(runtime_env={'env_vars': {'TOKENIZERS_PARALLELISM': 'true', 'NCCL_DEBUG': 'WARN'}})
+        print(test_init.dashboard_url)
     ray.get(main_task.remote(config, compute_score))
 
 
