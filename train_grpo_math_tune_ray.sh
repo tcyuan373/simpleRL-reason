@@ -6,6 +6,7 @@ export NCCL_DEBUG=DEBUG
 export RAY_BACKEND_LOG_LEVEL=debug
 export RAY_DEDUP_LOGS=1
 
+export WORKING_DIR="."
 
 export PROJECT_NAME=verl_train
 export WANDB_API_KEY='0fc0cd9916b988b325b1c64da2f5bbaf48f8e80b'
@@ -19,6 +20,7 @@ export RUN_NAME=verl-grpo
 export ARNOLD_WORKER_NUM=1 # number of nodes you want to use 
 export HEAD_IP='127.0.0.1'
 export HEAD_PORT=8265
+
 
 # Default values
 TRAIN_BATCH_SIZE=256
@@ -165,7 +167,7 @@ max_num_batched_tokens=$(expr $MAX_PROMPT_LENGTH + $MAX_RESPONSE_LENGTH + 1000)
 echo -e "Training with the following parameters:\nTrain Batch Size: $TRAIN_BATCH_SIZE\nVal Batch Size: $VAL_BATCH_SIZE\nMax Prompt Length: $MAX_PROMPT_LENGTH\nMax Response Length: $MAX_RESPONSE_LENGTH\nLearning Rate: $LEARNING_RATE\nPPO Mini Batch Size: $PPO_MINI_BATCH_SIZE\nPPO Micro Batch Size: $PPO_MICRO_BATCH_SIZE\nKL Loss Coefficient: $KL_LOSS_COEF\nKL Loss Type: $KL_LOSS_TYPE\nTemperature: $TEMPERATURE\nRollout N: $ROLLOUT_N\nKL Coefficient: $KL_COEF\nTotal Epochs: $TOTAL_EPOCHS\nDataset Name: $DATASET_NAME\nModel Name: $MODEL_NAME"
 
 
-ray job submit --address=${HEAD_IP}:${HEAD_PORT} \
+RAY_ADDRESS="http://${HEAD_IP}:${HEAD_PORT}" ray job submit \
   --entrypoint-num-cpus=1 \
   --runtime-env-json='{
         "working_dir": "'${WORKING_DIR}'",
